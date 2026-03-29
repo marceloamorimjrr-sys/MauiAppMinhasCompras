@@ -1,0 +1,10 @@
+<VerticalStackLayout Padding="20" Spacing="15">
+    <Entry x:Name="txt_descricao" Placeholder="Descrição do produto" />
+    <Entry x:Name="txt_quantidade" Placeholder="Quantidade" Keyboard="Numeric" />
+    <Entry x:Name="txt_preco" Placeholder="Preço unitário" Keyboard="Numeric" />
+
+    <Button Text="Salvar no Champ" 
+            Clicked="Button_Clicked" 
+            BackgroundColor="#2196F3" 
+            TextColor="White" />
+</VerticalStackLayout>
