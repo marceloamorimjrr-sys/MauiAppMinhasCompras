@@ -1,0 +1,9 @@
+public Task<int> Update(Produto p)
+{
+    return _conn.UpdateAsync(p);
+}
+
+public Task<int> Delete(int id)
+{
+    return _conn.Table<Produto>().DeleteAsync(i => i.Id == id);
+}
