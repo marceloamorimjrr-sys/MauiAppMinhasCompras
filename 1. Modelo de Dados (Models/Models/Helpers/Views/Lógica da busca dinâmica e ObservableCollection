@@ -1,0 +1,42 @@
+using System.Collections.ObjectModel;
+using MauiAppMinhasCompras.Models;
+
+namespace MauiAppMinhasCompras.Views;
+
+public partial class ListaProdutos : ContentPage
+{
+    [cite_start]// ObservableCollection para atualização automática da interface [cite: 84, 137]
+    ObservableCollection<Produto> lista_produtos = new ObservableCollection<Produto>();
+
+    public ListaProdutos()
+    {
+        InitializeComponent();
+        lst_produtos.ItemsSource = lista_produtos;
+    }
+
+    [cite_start]// OnAppearing é chamado sempre que a página aparece na tela [cite: 99]
+    protected override async void OnAppearing()
+    {
+        var itens = await App.Db.GetAll();
+        lista_produtos.Clear();
+        itens.ForEach(i => lista_produtos.Add(i));
+    }
+
+    [cite_start]// Evento TextChanged para realizar a busca dinâmica [cite: 33, 40]
+    private async void OnSearchTextChanged(object sender, TextChangedEventArgs e)
+    {
+        string termo = e.NewTextValue; // Novo texto após a alteração [cite: 46]
+        var busca = await App.Db.Search(termo);
+        
+        lista_produtos.Clear();
+        foreach (var item in busca)
+        {
+            lista_produtos.Add(item);
+        }
+    }
+
+    private async void Button_Clicked(object sender, EventArgs e)
+    {
+        await Navigation.PushAsync(new NovoProduto());
+    }
+}
